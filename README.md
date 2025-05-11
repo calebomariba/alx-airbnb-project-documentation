@@ -118,15 +118,15 @@ graph TD
     I --> I3[Monitor Messages]
     I --> I4[View Audit Logs]
 
-    style A fill:#f9f,stroke:#333
-    style B fill:#bbf,stroke:#333
-    style C fill:#bfb,stroke:#333
-    style D fill:#ffb,stroke:#333
-    style E fill:#bff,stroke:#333
-    style F fill:#fbf,stroke:#333
-    style G fill:#bff,stroke:#333
-    style H fill:#ffb,stroke:#333
-    style I fill:#f99,stroke:#333
+    style A fill:#f9f,stroke:#333;
+    style B fill:#bbf,stroke:#333;
+    style C fill:#bfb,stroke:#333;
+    style D fill:#ffb,stroke:#333;
+    style E fill:#bff,stroke:#333;
+    style F fill:#fbf,stroke:#333;
+    style G fill:#bff,stroke:#333;
+    style H fill:#ffb,stroke:#333;
+    style I fill:#f99,stroke:#333;
 
 ## Contact
 
