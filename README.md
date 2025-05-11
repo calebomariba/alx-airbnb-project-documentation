@@ -1,88 +1,133 @@
-# Airbnb Use Case Diagram
+# Airbnb Clone Backend Features and Functionalities
 
-This directory (`use-case-diagram/`) contains the use case diagram for the Airbnb system, as part of the `alx-airbnb-project-documentation` repository. The diagram visualizes the interactions between actors (Guest, Host, Admin) and the system's key functionalities, such as user registration, property booking, and payments.
+This directory (`features-and-functionalities/`) documents the key features and functionalities of the Airbnb Clone project backend, as part of the `alx-airbnb-project-documentation` repository. It includes a detailed list of features and a flowchart visualizing the backend processes.
 
 ## Files
 
-- **`use_case_diagram.png`**: PNG export of the use case diagram.
-- **`README.md`**: This file, documenting the directory and diagram.
+- **`README.md`**: This file, documenting the features and directory contents.
+- **`airbnb_backend_flowchart.png`**: Flowchart illustrating the backend functionalities (user authentication, property management, booking system, etc.).
 
-## Diagram Overview
+## Features and Functionalities
 
-The use case diagram captures the following:
+The Airbnb Clone backend supports the following core functionalities, designed to mimic a simplified version of Airbnb’s platform:
 
-### Actors
-- **Guest**: Searches and books properties, makes payments, writes reviews, and sends/receives messages.
-- **Host**: Registers properties, manages bookings, and communicates with guests.
-- **Admin**: Manages users and views system reports.
+### 1. User Authentication
+- **Registration**: Users sign up with first name, last name, email, password, phone number, and role (guest, host, admin). Email is unique; password is hashed.
+- **Login**: Users log in with email and password, receiving a session token (e.g., JWT).
+- **Logout**: Users log out, invalidating their session.
+- **Profile Management**: Users view/update their profile (name, phone, password). Admins manage user roles or deactivate accounts.
+- **Role-Based Access**:
+  - Guests: Book properties, write reviews.
+  - Hosts: Manage properties, respond to messages.
+  - Admins: Manage users, properties, bookings.
 
-### Key Functionalities
-- **User Registration**: Create a new account (Guest, Host, Admin).
-- **User Login**: Authenticate to access the system.
-- **Search Properties**: Find properties by location, price, etc.
-- **Book Property**: Create a booking for a property.
-- **Make Payment**: Pay for a booking.
-- **Write Review**: Leave a rating and comment for a property.
-- **Send/Receive Messages**: Communicate between guests and hosts.
-- **Register Property**: Add a new property to the system.
-- **Manage Bookings**: Confirm or cancel bookings.
-- **Manage Users**: Update user roles or ban users.
-- **View System Reports**: Monitor bookings, payments, or user activity.
+### 2. Property Management
+- **Create Property**: Hosts create properties with name, description, location (city, state, country), and price per night.
+- **Update Property**: Hosts update property details or availability.
+- **Delete Property**: Hosts soft-delete properties to preserve booking history.
+- **List Properties**: Users view/filter properties by location, price, or availability, including ratings.
+- **Location Management**: Admins add/update locations for properties.
 
-### Relationships
-- **Include**: Use cases like "Book Property" and "Make Payment" require "User Login".
-- **Extend**: "Write Review" is an optional extension of "Book Property" after a stay.
+### 3. Booking System
+- **Create Booking**: Guests book properties for specific dates, with total price calculated (price per night × nights). Status is “pending.”
+- **View Bookings**: Guests view their bookings; hosts view property bookings; admins view all.
+- **Update Booking**: Guests cancel bookings; hosts/admins confirm bookings.
+- **Availability Check**: System ensures no overlapping confirmed bookings.
+- **Booking History**: Users view past bookings (dates, price, status).
 
-## Mermaid Diagram
+### 4. Payments
+- **Process Payment**: Guests pay for confirmed bookings via credit card, PayPal, or Stripe (full or partial payments).
+- **View Payment History**: Guests/hosts view payments; admins view all.
+- **Payment Status**: Tracks payment amount, date, and method.
 
-The diagram is created using Mermaid syntax and rendered below. It is also exported as `use_case_diagram.png` for static viewing.
+### 5. Reviews
+- **Write Review**: Guests write reviews (rating 1–5, comment) for booked properties.
+- **View Reviews**: Users view property reviews and average ratings.
+- **Moderate Reviews**: Admins delete inappropriate reviews.
+
+### 6. Messaging
+- **Send Message**: Users send messages (e.g., booking inquiries).
+- **View Messages**: Users view sent/received messages, sorted by timestamp.
+- **Admin Oversight**: Admins monitor messages for moderation.
+
+### 7. Additional Functionalities
+- **Search and Filter**: Search properties by location, price, dates, or amenities.
+- **Notifications**: Send booking confirmations or message alerts (email/in-app).
+- **Audit Logging**: Log critical actions (e.g., registration, booking) for admin review.
+
+## Flowchart
+
+The flowchart (`airbnb_backend_flowchart.png`) visualizes the backend processes:
+- **User Journey**: Register, log in, access dashboard.
+- **Interactions**: Manage properties, create bookings, process payments, write reviews, send messages.
+- **Admin Actions**: Manage users, moderate content, view logs.
+- Created using Mermaid, with clear colors and labels for readability.
+
+To view the flowchart, open `airbnb_backend_flowchart.png` in this directory.
+
+## Repository Structure
+
+- **Repository**: `alx-airbnb-project-documentation`
+- **Directory**: `features-and-functionalities/`
+- **Files**:
+  - `README.md`
+  - `airbnb_backend_flowchart.png`
+
+## Usage
+
+- **Review Features**: Read this `README.md` for a detailed list of backend functionalities.
+- **View Flowchart**: Open `airbnb_backend_flowchart.png` to understand the workflow.
+- **Development**: Use this documentation to guide backend implementation (e.g., API endpoints, database queries).
+
 
 ```mermaid
 graph TD
-    subgraph System
-        UR[User Registration]:::usecase
-        UL[User Login]:::usecase
-        SP[Search Properties]:::usecase
-        BP[Book Property]:::usecase
-        MP[Make Payment]:::usecase
-        WR[Write Review]:::usecase
-        SRM[Send/Receive Messages]:::usecase
-        RP[Register Property]:::usecase
-        MB[Manage Bookings]:::usecase
-        MU[Manage Users]:::usecase
-        VSR[View System Reports]:::usecase
-    end
+    A[User] -->|Register| B[User Authentication]
+    A -->|Login| B
+    B -->|Success| C[Dashboard]
+    C --> D[Property Management]
+    C --> E[Booking System]
+    C --> F[Messaging]
+    C --> G[Reviews]
+    C --> H[Payments]
 
-    Guest[Guest]:::actor
-    Host[Host]:::actor
-    Admin[Admin]:::actor
+    D --> D1[Create Property]
+    D --> D2[Update Property]
+    D --> D3[Delete Property]
+    D --> D4[List Properties]
+    D --> D5[Search by Location/Price]
 
-    Guest --> UR
-    Guest --> UL
-    Guest --> SP
-    Guest --> BP
-    Guest --> MP
-    Guest --> WR
-    Guest --> SRM
+    E --> E1[Search Properties]
+    E1 --> E2[Check Availability]
+    E2 --> E3[Create Booking]
+    E3 --> E4[Confirm/Cancel Booking]
+    E3 --> H1[Process Payment]
 
-    Host --> UR
-    Host --> UL
-    Host --> RP
-    Host --> MB
-    Host --> SRM
+    H --> H1
+    H --> H2[View Payment History]
 
-    Admin --> UR
-    Admin --> UL
-    Admin --> MU
-    Admin --> VSR
+    G --> G1[Write Review]
+    G --> G2[View Reviews]
 
-    BP -->|includes| UL
-    MP -->|includes| UL
-    WR -->|extends| BP
-    MB -->|includes| UL
-    MU -->|includes| UL
-    VSR -->|includes| UL
-    SRM -->|includes| UL
+    F --> F1[Send Message]
+    F --> F2[View Messages]
 
-    classDef usecase fill:#f9f,stroke:#333,shape:oval
-    classDef actor fill:#bbf,stroke:#333,shape:rect
+    B -->|Admin| I[Admin Panel]
+    I --> I1[Manage Users]
+    I --> I2[Moderate Reviews]
+    I --> I3[Monitor Messages]
+    I --> I4[View Audit Logs]
+
+    style A fill:#f9f,stroke:#333
+    style B fill:#bbf,stroke:#333
+    style C fill:#bfb,stroke:#333
+    style D fill:#ffb,stroke:#333
+    style E fill:#bff,stroke:#333
+    style F fill:#fbf,stroke:#333
+    style G fill:#bff,stroke:#333
+    style H fill:#ffb,stroke:#333
+    style I fill:#f99,stroke:#333
+
+## Contact
+
+For questions or issues, please open an issue in the `alx-airbnb-project-documentation` repository or contact the repository owner.
